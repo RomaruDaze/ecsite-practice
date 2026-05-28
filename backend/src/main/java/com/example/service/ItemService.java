@@ -16,4 +16,12 @@ public class ItemService {
         return itemRepository.fetchAllItems();
     }
 
+    public Item fetchItemById(Integer id) {
+        return itemRepository.fetchItemById(id);
+    }
+
+    public List<Item> fetchItemByName(String name) {
+        return itemRepository.fetchItemByName(name);
+    }
+
 }

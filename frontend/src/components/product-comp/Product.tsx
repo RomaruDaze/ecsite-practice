@@ -1,23 +1,32 @@
+import { useNavigate } from "react-router";
+
 interface Props {
+  id?: number;
   name?: string;
   price?: number;
   imageUrl?: string;
 }
 
-const Product = ({ name, price, imageUrl }: Props) => {
+const Product = ({ id, name, price, imageUrl }: Props) => {
+  const navigate = useNavigate();
+
+  const handleToProductDetail = () => {
+    if (id !== undefined) {
+      navigate(`/product/${id}`);
+    } else {
+      console.warn("Product ID is missing.");
+    }
+  };
+
   return (
-    <div className="product-container">
+    <div className="product-container" onClick={handleToProductDetail}>
       <img src={imageUrl} alt="" />
 
       <div className="product-details">
         <h3>{name}</h3>
-        <p>{price}</p>
-        <button>
-          Add to cart{" "}
-          <img
-            src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
-            alt=""
-          />
+        <p>¥ {price?.toLocaleString()}</p>
+        <button className="item-show-detail" onClick={handleToProductDetail}>
+          View Details
         </button>
       </div>
     </div>

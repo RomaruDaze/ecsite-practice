@@ -4,10 +4,7 @@ import com.example.domain.Item;
 import com.example.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +24,24 @@ public class ApiController {
         return response;
     }
 
-    @GetMapping("/fetch-items")
+    @GetMapping("/fetch-all")
     public Map<String,List<Item>> fetchAllItems() {
         Map<String, List<Item>> response = new HashMap<>();
         response.put("items", itemService.fetchAllItems());
+        return response;
+    }
+
+    @GetMapping("/fetch-item/{id}")
+    public Map<String, Item> fetchItemsById(@PathVariable Integer id) {
+        Map<String, Item> response = new HashMap<>();
+        response.put("item", itemService.fetchItemById(id));
+        return response;
+    }
+
+    @GetMapping("/search-item/{name}")
+    public Map<String, List<Item>> fetchItemsByName(@PathVariable String name) {
+        Map<String, List<Item>> response = new HashMap<>();
+        response.put("item", itemService.fetchItemByName(name));
         return response;
     }
 }

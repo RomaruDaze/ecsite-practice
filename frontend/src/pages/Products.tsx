@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "../assets/css/products.style.css";
-import Product from "../components/product-comp/Product";
 import type { Item } from "../types/item";
-import { fetchItems } from "../api/itemApi";
+import { fetchAll } from "../api/itemApi";
+import Product from "../components/product-comp/Product";
+import "../assets/css/products.style.css";
 
 const Products = () => {
   const [items, setItems] = useState<Item[]>([]);
@@ -10,7 +10,7 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchItems();
+        const data = await fetchAll();
         setItems(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -28,6 +28,7 @@ const Products = () => {
         {items?.map((item) => (
           <Product
             key={item.id}
+            id={item.id}
             imageUrl={item.imageUrl}
             name={item.name}
             price={item.price}

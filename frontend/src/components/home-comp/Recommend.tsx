@@ -1,15 +1,26 @@
 import { useEffect, useState, useRef } from "react";
 import type { Item } from "../../types/item";
-import { fetchItems } from "../../api/itemApi";
+import { fetchAll } from "../../api/itemApi";
+import { useNavigate } from "react-router";
 
 const Recommend = () => {
   const [items, setItems] = useState<Item[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  const navigate = useNavigate();
+  const handleToProductDetail = (id: number | undefined) => {
+    if (id !== undefined) {
+      navigate(`/product/${id}`);
+    } else {
+      console.warn("Product ID is missing.");
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchItems();
+        const data = await fetchAll();
+
         setItems(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -46,7 +57,11 @@ const Recommend = () => {
 
       <div ref={scrollContainerRef} className="recommend-scroll">
         {items.map((item) => (
-          <div key={item.id} className="recomment-item-card">
+          <div
+            key={item.id}
+            className="recommend-item-card"
+            onClick={() => handleToProductDetail(item.id)}
+          >
             <img src={item.imageUrl} alt={item.name || "Recommended item"} />
             <div className="recommend-item-card-body">
               <div>
@@ -58,9 +73,7 @@ const Recommend = () => {
                 <span>
                   {item.price ? `¥${item.price.toLocaleString()}` : ""}
                 </span>
-                <button className="recommend-item-show-detail">
-                  View Details
-                </button>
+                <button className="item-show-detail">View Details</button>
               </div>
             </div>
           </div>

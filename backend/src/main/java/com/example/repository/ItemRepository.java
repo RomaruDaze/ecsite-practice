@@ -3,7 +3,9 @@ package com.example.repository;
 import com.example.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,11 +21,26 @@ public class ItemRepository {
         item.setName(rs.getString("name"));
         item.setPrice(rs.getInt("price"));
         item.setImageUrl(rs.getString("image_url"));
+        item.setDescription(rs.getString("description"));
         return item;
     };
 
     public List<Item> fetchAllItems() {
         String sql = "SELECT * FROM items ORDER BY price DESC";
         return template.query(sql, ROW_MAPPER);
+    }
+
+    public Item fetchItemById(Integer id) {
+        System.out.println("RepositoryFindById");
+        String sql = "SELECT * FROM items WHERE id = :id";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
+        return template.queryForObject(sql, param, ROW_MAPPER);
+    }
+
+    public List<Item> fetchItemByName(String word) {
+        System.out.println("RepositoryFindById");
+        String sql = "SELECT * FROM items WHERE name LIKE :word";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("word", "%" + word + "%");
+        return template.query(sql, param, ROW_MAPPER);
     }
 }

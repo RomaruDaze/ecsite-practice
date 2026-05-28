@@ -23,7 +23,6 @@ public class ItemRepository {
     };
 
     public List<Item> fetchAllItems() {
-        System.out.println("RepositoryFindAll");
         String sql = "SELECT * FROM items ORDER BY price DESC";
         return template.query(sql, ROW_MAPPER);
     }

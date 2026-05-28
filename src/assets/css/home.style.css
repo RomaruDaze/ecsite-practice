@@ -1,6 +1,6 @@
 /* Home Container */
-.home-container {
-}
+/* .home-container {
+} */
 
 .greeting-container {
   height: 70vh;
@@ -12,6 +12,74 @@
 
 .greeting-container p {
   font-size: xx-large;
+}
+
+/* Recommend Container */
+.recommend-container {
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Horizontal Scroll Container */
+.recommend-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding-bottom: 10px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.recommend-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual Item Card */
+.recomment-item-card {
+  width: 300px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Card Image */
+.recomment-item-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Optional: Basic styling for the card body text/actions */
+.recommend-item-card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recommend-item-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recommend-item-show-detail {
+  background-color: #e3efff;
+  border: 2px solid #2f4fff;
+  color: #2f4fff;
+  border-radius: 7px;
+  padding: 5px;
+  transition: 300ms;
+}
+
+.recommend-item-show-detail:hover {
+  background-color: #2f4fff;
+  color: #e3efff;
 }
 
 .carousel-image-container {

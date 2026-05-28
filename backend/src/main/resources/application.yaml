@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/student?useUnicode=true&characterEncoding=utf8
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  # Add or update this specific block
+  session:
+    jdbc:
+      initialize-schema: always
+  sql:
+    init:
+      mode: always
+
+server:
+  servlet:
+    context-path: /

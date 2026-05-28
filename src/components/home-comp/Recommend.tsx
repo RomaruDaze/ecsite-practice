@@ -1,49 +1,70 @@
-import { items } from "../../constants/items";
+import { useEffect, useState, useRef } from "react";
 import type { Item } from "../../types/item";
-import Carousel from "./Carousel";
+import { fetchItems } from "../../api/itemApi";
 
 const Recommend = () => {
-  const itemList: Item[] = items;
+  const [items, setItems] = useState<Item[]>([]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchItems();
+        setItems(data);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error("エラー", error.message);
+        }
+      }
+    };
+
+    void fetchData();
+  }, []);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || items.length === 0) return;
+
+    const autoScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+
+      if (scrollLeft + clientWidth >= scrollWidth - 1) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        container.scrollBy({ left: 320, behavior: "smooth" });
+      }
+    };
+
+    const intervalId = setInterval(autoScroll, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [items]);
 
   return (
-    <div>
-      <div
-        id="carouselExampleAutoplaying"
-        className="carousel slide"
-        data-bs-ride="carousel"
-      >
-        <div className="carousel-inner">
-          {itemList.map((item) => (
-            <div className="carousel-item active">
-              <Carousel imageUrl={item.imageUrl} />
-            </div>
-          ))}
-        </div>
+    <div className="recommend-container">
+      <h2>Recommended Items</h2>
 
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleAutoplaying"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleAutoplaying"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
+      <div ref={scrollContainerRef} className="recommend-scroll">
+        {items.map((item) => (
+          <div key={item.id} className="recomment-item-card">
+            <img src={item.imageUrl} alt={item.name || "Recommended item"} />
+            <div className="recommend-item-card-body">
+              <div>
+                <h5 className="recommend-item-title">
+                  {item.name || "Item Title"}
+                </h5>
+              </div>
+              <div className="recommend-item-price">
+                <span>
+                  {item.price ? `¥${item.price.toLocaleString()}` : ""}
+                </span>
+                <button className="recommend-item-show-detail">
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

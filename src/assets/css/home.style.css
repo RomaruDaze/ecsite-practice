@@ -1,0 +1,22 @@
+/* Home Container */
+.home-container {
+}
+
+.greeting-container {
+  height: 70vh;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.greeting-container p {
+  font-size: xx-large;
+}
+
+.carousel-image-container {
+  height: 500px;
+  width: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, type ChangeEvent } from "react";
 import { useNavigate, Link } from "react-router";
 import { loginApi } from "../api/userApi";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +9,14 @@ const Login = () => {
   const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,42 +27,39 @@ const Login = () => {
       login(user);
       navigate("/home");
     } else {
-      setError("メールアドレスまたはパスワードが正しくありません。");
+      setError("Email Address or password is wrong.");
     }
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "400px" }}>
-      <h2 className="text-center mb-4">ログイン</h2>
+    <div className="login-page-container">
+      <h2>Login</h2>
       {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">メールアドレス</label>
+      <form className="login-page-form" onSubmit={handleSubmit}>
+        <div>
+          <label>Email Address</label>
           <input
             type="email"
             className="form-control"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">パスワード</label>
+        <div>
+          <label>Password</label>
           <input
             type="password"
             className="form-control"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary w-100">
-          ログイン
-        </button>
+        <button type="submit">Login</button>
       </form>
       <p className="text-center mt-3">
-        アカウントをお持ちでないですか？{" "}
-        <Link to="/register">新規登録はこちら</Link>
+        Don't have account? <Link to="/register">Register here</Link>
       </p>
     </div>
   );

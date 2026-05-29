@@ -15,22 +15,20 @@ const Register = () => {
 
     const success = await registerApi(name, email, password);
     if (success) {
-      alert("登録が完了しました！ログインしてください。");
+      alert("Register is Complete! Please login now");
       navigate("/login");
     } else {
-      setError(
-        "登録に失敗しました。メールアドレスが既に使用されている可能性があります。",
-      );
+      setError("Register is failed. use a different email address.");
     }
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "400px" }}>
-      <h2 className="text-center mb-4">新規会員登録</h2>
+    <div className="register-page-container">
+      <h2 className="text-center mb-4">Account Registration</h2>
       {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">お名前</label>
+      <form className="register-page-form" onSubmit={handleSubmit}>
+        <div>
+          <label>Username</label>
           <input
             type="text"
             className="form-control"
@@ -39,8 +37,8 @@ const Register = () => {
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">メールアドレス</label>
+        <div>
+          <label>Email Address</label>
           <input
             type="email"
             className="form-control"
@@ -49,8 +47,8 @@ const Register = () => {
             required
           />
         </div>
-        <div className="mb-3">
-          <label className="form-label">パスワード</label>
+        <div>
+          <label>Password</label>
           <input
             type="password"
             className="form-control"
@@ -59,13 +57,10 @@ const Register = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-success w-100">
-          アカウント作成
-        </button>
+        <button type="submit">Create Account</button>
       </form>
-      <p className="text-center mt-3">
-        すでにアカウントをお持ちですか？{" "}
-        <Link to="/login">ログインはこちら</Link>
+      <p>
+        Already have an account? <Link to="/login">Login here</Link>
       </p>
     </div>
   );

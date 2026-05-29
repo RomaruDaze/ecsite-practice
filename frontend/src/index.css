@@ -38,6 +38,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 40px 0 40px;
 }
 
 .nav-container-top img {
@@ -74,16 +75,36 @@ body {
   width: 10px;
 }
 
+/* Login・Logout Button */
+
+.login-button {
+  border: none;
+  background-color: #2f9600;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.login-button:hover {
+  transition: ease-in-out;
+  transition-duration: 300ms;
+  background-color: #206500;
+}
+
 .logout-button {
   border: none;
-  background-color: transparent;
-  color: rgb(72, 72, 72);
+  background-color: #960000;
+  padding: 5px 20px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 300;
 }
 
 .logout-button:hover {
   transition: ease-in-out;
   transition-duration: 300ms;
-  color: rgb(255, 82, 82);
+  background-color: #650000;
 }
 
 /* Navigation Bottom */
@@ -91,7 +112,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 20px;
+  height: 30px;
 }
 
 .nav-link {
@@ -121,7 +142,6 @@ body {
 }
 
 /* Add-To-Cart Button */
-
 .add-to-cart-btn {
   background-color: #ff9100;
   border: 2px solid #ffffff;
@@ -158,4 +178,59 @@ body {
   background-color: #ffffff;
   border: 2px solid #2f4fff;
   color: #2f4fff;
+}
+
+/* Login Page */
+.login-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.login-page-form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.login-page-form button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2f4fff;
+  color: white;
+}
+
+.login-page-form button:hover {
+  background-color: #2640d5;
+}
+
+.register-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.register-page-form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.register-page-form button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: #089a00;
+  color: white;
+}
+
+.register-page-form button:hover {
+  background-color: #077301;
 }

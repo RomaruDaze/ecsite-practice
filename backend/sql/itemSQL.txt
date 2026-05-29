@@ -1,0 +1,76 @@
+-- 1. Delete the table if it already exists
+DROP TABLE IF EXISTS items;
+
+-- 2. Create the table with the new description column
+CREATE TABLE items (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    image_url TEXT,
+    price NUMERIC(10, 2) NOT NULL,
+    description TEXT NOT NULL
+);
+
+-- 3. Insert the data with ~100-word descriptions
+INSERT INTO items (name, price, image_url, description) VALUES
+(
+    'Book of Life',
+    1300,
+    'https://images-us.bookshop.org/ingram/9780226822952.jpg?v=6782fa882f864e03c6e7511fc8f44fc7',
+    'The Book of Life is a profound exploration into the biological and philosophical mechanisms that sustain existence across the cosmos. Spanning centuries of gathered wisdom, this text delves deep into the microscopic cellular processes, evolutionary milestones, and ecological interdependencies that allow diverse organisms to flourish. Readers will discover captivating narratives detailing how life adapts to extreme environments, from deep-sea hydrothermal vents to arid desert landscapes. It serves as both a scientific guide and an existential reflection, urging humanity to cherish the delicate balance of nature. This masterpiece challenges our understanding of consciousness and celebrates the eternal, vibrant dance of living matter.'
+),
+(
+    'Book of Death',
+    1320,
+    'https://blog-cdn.reedsy.com/directories/gallery/248/large_65b0ae90317f7596d6f95bfdd6131398.jpg',
+    'The Book of Death provides a hauntingly beautiful examination of the ultimate frontier that awaits every living soul. Far from being a macabre obsession, this volume approaches mortality with a mixture of historical reverence, anthropological insight, and serene philosophical acceptance. It chronicles how different global civilizations throughout history have honored, conceptualized, and transitioned into the great unknown, offering comfort to those seeking meaning. Through poetic prose and meticulous research, the author re-frames the end of life not as a tragic finality, but as an essential, elegant punctuation mark that gives meaning to our existence. It is a transformative read.'
+),
+(
+    'Book of Reincarnation',
+    1420,
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc77YbZpHoe11mduuXZgfrDvfo4Q43adq_Nw&s',
+    'The Book of Reincarnation invites readers on a metaphysical journey across multiple lifetimes, exploring the timeless concept of the transmigration of the soul. Drawing heavily from ancient Eastern philosophies, modern past-life regression case studies, and esoteric spiritual traditions, this captivating book investigates the invisible threads that bind our past actions to our present realities. It teaches readers how to identify karmic patterns, unlock dormant ancestral memories, and understand the spiritual lessons behind difficult life relationships. Ultimately, this profound text illuminates the soul''s eternal evolution, proving that physical death is merely the prelude to an exciting new chapter of cosmic discovery.'
+),
+(
+    'Book of Woman',
+    1990,
+    'https://edit.org/images/cat/book-covers-big-2019101610.jpg',
+    'The Book of Woman stands as an empowering, comprehensive anthology celebrating the multifaceted experiences, triumphs, and struggles of womanhood across diverse historical eras and global cultures. Combining poignant personal essays, rigorous historical analysis, and inspiring biographical profiles, this text honors the revolutionary pioneers who reshaped art, politics, science, and societal norms against all odds. It dives deep into the complexities of identity, sisterhood, motherhood, and leadership, offering a vibrant tapestry of voices that resonate with resilience and grace. This essential volume serves as an inspiring beacon, encouraging future generations to break boundaries and proudly redefine their own narratives.'
+),
+(
+    'Book of Japan',
+    1450,
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsfxrcUtlaLqSTTpA7N9cWKIopvRNtXngM2A&s',
+    'The Book of Japan offers a breathtakingly vivid exploration of an archipelago where ancient traditions seamlessly blend with cutting-edge futuristic innovation. This beautifully written volume takes readers on an immersive journey from the neon-lit skyscrapers of Tokyo to the tranquil, mist-shrouded temples of Kyoto. Along the way, it unpacks the cultural nuances of bushido, the intricate artistry of the tea ceremony, and the global phenomenon of modern anime and culinary arts. By analyzing the country''s rich history of isolation, rapid modernization, and profound cultural resilience, the book provides an unparalleled look into the unique soul of the Land of the Rising Sun.'
+),
+(
+    'Book of Fire',
+    1500,
+    'https://template.canva.com/EAFihRgw0cI/2/0/1003w-pug7SdX02F8.jpg',
+    'The Book of Fire is a thrilling, comprehensive study of humanity''s oldest and most volatile tool, tracing its destructive might and creative brilliance. From the primordial sparks that sparked early civilization to the complex thermodynamic engines powering modern industrial societies, this text captures the mesmerizing essence of combustion. It explores how fire shaped human evolution, revolutionized culinary practices, and became a central symbol of passion, purification, and rebirth in global mythologies. Packed with fascinating historical anecdotes and vivid scientific explanations, this book ignites the imagination and leaves readers with a profound appreciation for the blazing energy that forged our world.'
+),
+(
+    'Book of Water',
+    2420,
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzeLMZyZiO7aokXGyRJRefi-WUbVbpv84Wgg&s',
+    'The Book of Water serves as a mesmerizing ode to the life-giving fluid that covers the majority of our planet and sustains all living cells. This fluid masterpiece flows gracefully through the geology of vast oceans, the hydrology of roaring rivers, and the geopolitical battles over modern freshwater resources. It examines water''s unique chemical properties that defy standard physics, alongside its deep symbolic role as a purifying agent in spiritual traditions worldwide. Through stunning descriptions of frozen glaciers and tropical monsoons, the author highlights our urgent collective responsibility to protect this precious, fragile resource from the devastating effects of pollution.'
+),
+(
+    'Book of Air',
+    1320,
+    'https://images-platform.99static.com//Q2Fwj5laXViAM8QtAGAfpxUyEYg=/fit-in/500x500/projects-files/152/15287/1528752/f86d06e9-f594-4207-99a3-ab29ac5bd86d.jpg',
+    'The Book of Air is an invisible yet deeply tangible exploration of the atmospheric ocean that envelops our planet, sustaining every breath we take. This fascinating book uncovers the complex meteorology behind raging tornadoes, whispering gentle breezes, and global climate patterns that shape our seasons. It tracks the migration of birds, the dispersal of plant seeds, and humanity''s daring quest to conquer the skies through aviation and aerospace technology. By making the invisible visible, the text reveals how the delicate composition of gases in our atmosphere acts as a vital protective shield against the harsh vacuum of space.'
+),
+(
+    'Book of Blood',
+    1590,
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRQBc2A_gj-sCIvK3Kdle3UcaQ3npJ9y0eHw&s',
+    'The Book of Blood offers a gripping, multi-disciplinary examination of the vital crimson river that flows through our veins, carrying the very essence of life. This book masterfully bridges the gap between advanced hematology and cultural folklore, exploring everything from cardiovascular mechanics to historic vampire myths and ancient sacrificial rituals. It investigates how blood types influence health, the miraculous science of modern blood transfusions, and the genetic markers that connect human lineages across millennia. Intense, educational, and deeply fascinating, this text unveils the profound biological mysteries and symbolic power of the fluid that binds all humanity together.'
+),
+(
+    'Book of Earth',
+    1400,
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSumTR2WO4rEfHmeY4sFp6-KMfLIJasCzohZA&s',
+    'The Book of Earth provides a grounding, deeply insightful journey into the solid foundations of our planet, exploring billions of years of geological evolution. From the churning iron core and shifting tectonic plates to the fertile topsoil that feeds global civilizations, this volume uncovers the dynamic processes shaping our landscapes. It examines the formation of majestic mountain ranges, the birth of precious gemstones, and the critical role of sustainable agriculture in an overpopulated world. This inspiring read serves as a powerful reminder of our deep connection to the soil, urging us to become better stewards of the land.'
+);
+
+--

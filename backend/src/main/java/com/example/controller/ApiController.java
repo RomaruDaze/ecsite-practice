@@ -1,7 +1,9 @@
 package com.example.controller;
 
 import com.example.domain.Item;
+import com.example.domain.User;
 import com.example.service.ItemService;
+import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ public class ApiController {
     @Autowired
     private ItemService itemService;//Service Class
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/hello")
     public Map<String, String> getHelloMessage() {
         Map<String, String> response = new HashMap<>();
@@ -24,6 +29,9 @@ public class ApiController {
         return response;
     }
 
+    /*
+    * Item API
+    * */
     @GetMapping("/fetch-all")
     public Map<String,List<Item>> fetchAllItems() {
         Map<String, List<Item>> response = new HashMap<>();
@@ -42,6 +50,16 @@ public class ApiController {
     public Map<String, List<Item>> fetchItemsByName(@PathVariable String name) {
         Map<String, List<Item>> response = new HashMap<>();
         response.put("item", itemService.fetchItemByName(name));
+        return response;
+    }
+
+    /*
+     * User API
+     * */
+    @GetMapping("/fetch-users")
+    public Map<String, List<User>> fetchUsers() {
+        Map<String, List<User>> response = new HashMap<>();
+        response.put("users", userService.fetchAllUsers());
         return response;
     }
 }

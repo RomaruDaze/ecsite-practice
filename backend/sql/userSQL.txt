@@ -1,0 +1,18 @@
+-- 1. Delete the table if it already exists
+DROP TABLE IF EXISTS users;
+
+-- 2. Create the table with the new description column
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- 3. Insert the data with ~100-word descriptions
+INSERT INTO users (name, email, password) VALUES
+(
+    'romarudaze',
+    'roger@sample.com',
+    '123'
+)

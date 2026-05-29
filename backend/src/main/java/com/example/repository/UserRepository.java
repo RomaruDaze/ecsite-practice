@@ -34,4 +34,13 @@ public class UserRepository {
         SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password",password);
         return template.queryForObject(sql, param, ROW_MAPPER);
     }
+
+    public void registerUser(User user) {
+        String sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+        SqlParameterSource param = new MapSqlParameterSource()
+                .addValue("name", user.getName())
+                .addValue("email", user.getEmail())
+                .addValue("password", user.getPassword()); // Recommended in production: BCrypt.hashpw(...)
+        template.update(sql, param);
+    }
 }

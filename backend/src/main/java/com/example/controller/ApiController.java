@@ -5,7 +5,6 @@ import com.example.domain.User;
 import com.example.service.ItemService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -14,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
 public class ApiController {
     @Autowired
     private ItemService itemService;//Service Class
@@ -63,10 +61,36 @@ public class ApiController {
         return response;
     }
 
-    @GetMapping("/user/login")
-    public Map<String,User> login(@RequestParam String email, @RequestParam String password) {
-        Map<String,User> response = new HashMap<>();
-        response.put("user", userService.findByEmailAndPassword(email, password));
+    @PostMapping("/user/login")
+    public Map<String, Object> login(@RequestBody Map<String, String> credentials) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            User user = userService.findByEmailAndPassword(email, password);
+            response.put("user", user);
+            response.put("success", user != null);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Invalid email or password");
+        }
         return response;
     }
+
+    @PostMapping("/user/register")
+    public Map<String, Object> register(@RequestBody User user) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            userService.register(user);
+            response.put("success", true);
+            response.put("message", "User registered successfully");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Registration failed: " + e.getMessage());
+        }
+        return response;
+    }
+
+
 }

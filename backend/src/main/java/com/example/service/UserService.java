@@ -20,6 +20,10 @@ public class UserService {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
+    public void register(User user) {
+        userRepository.registerUser(user);
+    }
+
 //    public  save( ) {
 //        return .save();
 //    }

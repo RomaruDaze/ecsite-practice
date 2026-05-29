@@ -6,6 +6,7 @@ import Products from "./pages/Products";
 import Footer from "./components/Footer";
 import ProductDetails from "./pages/ProductDetails";
 import SearchResult from "./pages/SearchResult";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -13,9 +14,11 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/products" element={<Products />} />"
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/search/:word" element={<SearchResult />} />
         </Routes>

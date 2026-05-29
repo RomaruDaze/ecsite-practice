@@ -1,47 +1,34 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import logo from "../assets/images/logo.png";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const [word, setWord] = useState("");
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
-
-  const pathToHome = "/home";
-  const handleRedirectToHome = () => {
-    navigate(pathToHome);
-  };
-
-  const pathToLogin = "/login";
-  const handleRedirectToLogin = () => {
-    navigate(pathToLogin);
-  };
 
   const handleSearch = () => {
     if (word.trim() !== "") {
       navigate(`/search/${word}`);
-    } else {
-      console.warn("Search word is empty.");
     }
   };
-
 
   return (
     <nav className="nav-container">
       <div className="nav-container-top">
         <img
           src={logo}
-          onClick={handleRedirectToHome}
+          onClick={() => navigate("/home")}
           alt="Logo"
           style={{ cursor: "pointer" }}
         />
+
         <div className="search-bar">
-          {/* 2. Bind the input value and onChange handler */}
           <input
             type="text"
-            id="word"
             value={word}
             onChange={(e) => setWord(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()} // Optional: search on Enter key
           />
           <button onClick={handleSearch}>
             <img
@@ -50,10 +37,29 @@ const Header = () => {
             />
           </button>
         </div>
-        <button className="login-button" onClick={handleRedirectToLogin}>
-          ログイン
-        </button>
+
+        <div className="auth-actions">
+          {user ? (
+            <>
+              <span className="me-2">こんにちは、{user.name}さん</span>
+              <button
+                className="logout-button btn btn-outline-danger btn-sm"
+                onClick={() => {
+                  logout();
+                  navigate("/home");
+                }}
+              >
+                ログアウト
+              </button>
+            </>
+          ) : (
+            <button className="login-button" onClick={() => navigate("/login")}>
+              ログイン
+            </button>
+          )}
+        </div>
       </div>
+
       <div className="nav-container-bottom">
         <Link className="nav-link" to="/home">
           Home

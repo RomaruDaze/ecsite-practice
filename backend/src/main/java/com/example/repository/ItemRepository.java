@@ -43,4 +43,20 @@ public class ItemRepository {
         SqlParameterSource param = new MapSqlParameterSource().addValue("word", "%" + word + "%");
         return template.query(sql, param, ROW_MAPPER);
     }
+
+
+    public List<Item> fetchCartAllItem(Integer userId) {
+        String sql =
+                "SELECT id, name, price,description,image_url \n" +
+                "FROM items AS i\n" +
+                "WHERE i.id IN (\n" +
+                "    SELECT c.item_id \n" +
+                "    FROM cart AS c \n" +
+                "    JOIN users AS u ON u.id = c.user_id\n" +
+                "    where u.id = :id\n" +
+                "    )\n" +
+                ";";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("id", userId);
+        return template.query(sql, param, ROW_MAPPER);
+    }
 }

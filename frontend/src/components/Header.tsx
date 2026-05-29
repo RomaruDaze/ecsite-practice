@@ -16,6 +16,10 @@ const Header = () => {
     navigate("/login");
   };
 
+  const handleRedirectToCart = () => {
+    navigate("/cart");
+  };
+
   const handleLogout = () => {
     logout();
     handleRedirectToHome();
@@ -54,15 +58,29 @@ const Header = () => {
         <div className="auth-actions">
           {user ? (
             <>
+              <button className="show-cart-btn" onClick={handleRedirectToCart}>
+                <img
+                  src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
+                  alt=""
+                />
+              </button>
               <span className="me-2">Hello, {user.name}</span>
               <button className="logout-button" onClick={handleLogout}>
                 Logout
               </button>
             </>
           ) : (
-            <button className="login-button" onClick={handleRedirectToLogin}>
-              Login
-            </button>
+            <>
+              <button className="show-cart-btn" onClick={handleRedirectToLogin}>
+                <img
+                  src="https://img.icons8.com/ios-glyphs/30/shopping-cart--v1.png"
+                  alt=""
+                />
+              </button>
+              <button className="login-button" onClick={handleRedirectToLogin}>
+                Login
+              </button>
+            </>
           )}
         </div>
       </div>

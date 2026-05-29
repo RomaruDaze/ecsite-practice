@@ -74,6 +74,26 @@ body {
   height: auto;
   width: 10px;
 }
+/* Auth Actions */
+.auth-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Show Cart Button */
+
+.show-cart-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.show-cart-btn img {
+  height: auto;
+  width: 30px;
+}
 
 /* Login・Logout Button */
 

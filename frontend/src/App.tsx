@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import ProductDetails from "./pages/ProductDetails";
 import SearchResult from "./pages/SearchResult";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/search/:word" element={<SearchResult />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -24,4 +24,8 @@ public class ItemService {
         return itemRepository.fetchItemByName(name);
     }
 
+    public List<Item> fetchAllCartItem(Integer userId) {
+        return itemRepository.fetchCartAllItem(userId);
+    }
+
 }

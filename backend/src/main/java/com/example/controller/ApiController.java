@@ -92,5 +92,13 @@ public class ApiController {
         return response;
     }
 
-
+    /*
+    * Cart API
+    * */
+    @GetMapping("/cart/fetch-all/{id}")
+    public Map<String, List<Item>> fetchUsers(@PathVariable Integer id) {
+        Map<String, List<Item>> response = new HashMap<>();
+        response.put("users", itemService.fetchAllCartItem(id));
+        return response;
+    }
 }

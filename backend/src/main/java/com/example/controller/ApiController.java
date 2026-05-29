@@ -121,4 +121,18 @@ public class ApiController {
         }
         return response;
     }
+
+    @DeleteMapping("/cart/remove-from-cart")
+    public Map<String, Object> removeFromCart(@RequestParam("userid") Integer userId, @RequestParam("itemid") Integer itemId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            cartService.removeItemFromCart(userId, itemId);
+            response.put("success", true); //  Add this line
+            response.put("message", "Item removed from cart successfully"); // Optional
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to remove item: " + e.getMessage());
+        }
+        return response;
+    }
 }

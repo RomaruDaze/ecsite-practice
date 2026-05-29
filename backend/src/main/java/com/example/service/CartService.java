@@ -5,8 +5,6 @@ import com.example.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class CartService {
     @Autowired
@@ -17,5 +15,9 @@ public class CartService {
         cart.setUserId(userId);
         cart.setItemId(itemId);
         cartRepository.addToCart(cart);
+    }
+
+    public void removeItemFromCart(Integer userId, Integer itemId) {
+        cartRepository.removeFromCart(userId, itemId);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.repository;
 
 import com.example.domain.Cart;
-import com.example.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -11,8 +10,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public class CartRepository {
@@ -28,7 +25,6 @@ public class CartRepository {
     };
 
     public void addToCart(Cart cart) {
-        System.out.println("RepositorySave");
         SqlParameterSource param = new BeanPropertySqlParameterSource(cart);
 
         if (cart.getId() == null) {
@@ -47,5 +43,12 @@ public class CartRepository {
 
             template.update(updateSql, param);
         }
+    }
+
+    public void removeFromCart(Integer userId, Integer itemId) {
+        System.out.println("Remove");
+        String sql = "DELETE FROM cart WHERE user_id = :userId AND item_id = :itemId";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("userId", userId ).addValue("itemId", itemId);
+        template.update(sql, param);
     }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import type { Item } from "../types/item";
-import { fetchCartAllItem } from "../api/cartApi";
+import { fetchCartAllItem, removeItemFromCart } from "../api/cartApi";
 import "../assets/css/cart.style.css";
 
 const Cart = () => {
@@ -29,6 +29,22 @@ const Cart = () => {
     void fetchData();
   }, [user?.id]);
 
+  const handleRemoveItemFromCart = async (itemId: number) => {
+    if (!user?.id) return;
+    try {
+      const isSuccess = await removeItemFromCart(user.id, itemId);
+      if (isSuccess) {
+        alert("カートに商品を削除しました！");
+        setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+      } else {
+        alert("削除に失敗しました。");
+      }
+    } catch (error) {
+      console.error("カート削除エラー:", error);
+      alert("エラーが発生しました。");
+    }
+  };
+
   if (isLoading) {
     return <div>読み込み中...</div>;
   }
@@ -46,7 +62,10 @@ const Cart = () => {
                 <p className="price">¥{item.price.toLocaleString()}</p>
               </div>
             </div>
-            <button className="cart-remove-btn">
+            <button
+              className="cart-remove-btn"
+              onClick={() => handleRemoveItemFromCart(item.id)}
+            >
               <img
                 src="https://img.icons8.com/ios-filled/100/FFFFFF/waste.png"
                 alt=""

@@ -31,3 +31,18 @@ export async function addItemToCart(
 
   return data.success;
 }
+
+export async function removeItemFromCart(
+  userId: number,
+  itemId: number,
+): Promise<boolean> {
+  const url = `${BASE_URL}/cart/remove-from-cart?userid=${userId}&itemid=${itemId}`;
+  const response = await fetch(url, { method: "DELETE" });
+
+  if (!response.ok) {
+    throw new Error("カートに商品を削除できませんでした");
+  }
+  const data = await response.json();
+
+  return data.success;
+}

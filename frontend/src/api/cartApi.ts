@@ -20,14 +20,11 @@ export async function addItemToCart(
     method: "POST",
   });
 
-  console.log(response);
-
   if (!response.ok) {
     throw new Error("カートに商品を追加できませんでした");
   }
 
   const data = await response.json();
-  console.log(data);
 
   return data.success;
 }
@@ -45,4 +42,18 @@ export async function removeItemFromCart(
   const data = await response.json();
 
   return data.success;
+}
+
+export async function checkoutCart(
+  id: number,
+): Promise<{ success: boolean; message: string }> {
+  const response = await fetch(`${BASE_URL}/cart/checkout/${id}`, {
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    throw new Error("チェックアウト処理の通信に失敗しました");
+  }
+
+  return await response.json();
 }

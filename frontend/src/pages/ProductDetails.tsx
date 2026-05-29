@@ -16,7 +16,6 @@ const ProductDetails = () => {
     const fetchData = async () => {
       try {
         const data = await fetchItem(itemId);
-        console.log(data);
         setItem(data);
       } catch (error: unknown) {
         if (error instanceof Error) {

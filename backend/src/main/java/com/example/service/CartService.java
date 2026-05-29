@@ -5,6 +5,8 @@ import com.example.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class CartService {
     @Autowired
@@ -19,5 +21,9 @@ public class CartService {
 
     public void removeItemFromCart(Integer userId, Integer itemId) {
         cartRepository.removeFromCart(userId, itemId);
+    }
+
+    public Map<String, Object> checkoutCart(Integer userId, String email, String name) {
+        return cartRepository.processCheckout(userId, email, name);
     }
 }

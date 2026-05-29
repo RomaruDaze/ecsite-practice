@@ -135,4 +135,35 @@ public class ApiController {
         }
         return response;
     }
+
+    @PostMapping("/cart/checkout/{id}")
+    public Map<String, Object> checkout(@PathVariable Integer id) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // 1. ユーザー情報の取得（Streamを使わないループ処理）
+            List<User> allUsers = userService.fetchAllUsers();
+            User targetUser = null;
+
+            for (User u : allUsers) {
+                if (u.getId() != null && u.getId().equals(id)) {
+                    targetUser = u;
+                    break;
+                }
+            }
+
+            if (targetUser == null) {
+                response.put("success", false);
+                response.put("message", "ユーザーが見つかりませんでした。");
+                return response;
+            }
+
+            // 2. カートリポジトリ経由のSQLチェックアウト処理を呼び出し
+            return cartService.checkoutCart(targetUser.getId(), targetUser.getEmail(), targetUser.getName());
+
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "チェックアウト中にエラーが発生しました: " + e.getMessage());
+            return response;
+        }
+    }
 }

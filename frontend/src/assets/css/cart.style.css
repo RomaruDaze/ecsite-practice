@@ -56,9 +56,14 @@
   color: #333;
 }
 
-.cart-item-list button {
-  padding: 8px 16px;
+.cart-remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px;
   background-color: #ff4d4f;
+  width: 100px;
   color: white;
   border: none;
   border-radius: 4px;
@@ -66,6 +71,11 @@
   transition: background 0.3s;
 }
 
-.cart-item-list button:hover {
-  background-color: #ff7875;
+.cart-remove-btn:hover {
+  background-color: #df4346;
+}
+
+.cart-remove-btn img {
+  width: auto;
+  height: 20px;
 }

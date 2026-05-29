@@ -46,7 +46,12 @@ const Cart = () => {
                 <p className="price">¥{item.price.toLocaleString()}</p>
               </div>
             </div>
-            <button>Remove</button>
+            <button className="cart-remove-btn">
+              <img
+                src="https://img.icons8.com/ios-filled/100/FFFFFF/waste.png"
+                alt=""
+              />
+            </button>
           </div>
         ))}
       </div>

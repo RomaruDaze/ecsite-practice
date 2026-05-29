@@ -1,4 +1,4 @@
-import { BASE_URL } from "../components/constants/apiUrl";
+import { BASE_URL } from "../constants/apiUrl";
 import type { User } from "../types/user";
 
 export async function loginApi(

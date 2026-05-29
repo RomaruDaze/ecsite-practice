@@ -122,61 +122,63 @@ const Cart = () => {
   }
 
   return (
-    <div className="cart-container">
-      <h2 className="mb-4">Shopping Cart</h2>
-      {groupedItems.length === 0 ? (
-        <p className="text-muted text-center mt-5">Your cart is empty.</p>
-      ) : (
-        <>
-          <div className="cart-items">
-            {groupedItems.map((item) => (
-              <div className="cart-item-list" key={item.id}>
-                <div className="cart-item-detail">
-                  <img src={item.imageUrl} alt={item.name} />
-                  <div className="cart-item-text">
-                    <p className="name">{item.name}</p>
-                    <p className="price">
-                      {item.quantity > 1 && (
-                        <span className="cart-item-quantity-badge text-danger font-weight-bold me-2">
-                          x{item.quantity}
-                        </span>
-                      )}
-                      ¥{item.price.toLocaleString()}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  className="cart-remove-btn"
-                  onClick={() => handleRemoveItemFromCart(item.id)}
-                >
-                  <img
-                    src="https://img.icons8.com/ios-filled/100/FFFFFF/waste.png"
-                    alt="Remove Item"
-                  />
-                </button>
-              </div>
-            ))}
-          </div>
+    <>
+      <div className="cart-container">
+        <h2 className="mb-4">Shopping Cart</h2>
+        {groupedItems.length === 0 ? (
+          <p className="text-muted text-center mt-5">Your cart is empty.</p>
+        ) : (
+          <>
+            <div className="cart-items">
+              {groupedItems.map((item) => {
+                // 1. Calculate the combined total for this grouped item stack
+                const itemTotalLinePrice = item.price * item.quantity;
 
-          <div className="checkout-summary-box mt-5 p-4 border rounded bg-light text-center w-100 style-summary">
-            <h4 className="text-secondary">Items Tally: {items.length}</h4>
-            <h2 className="text-dark my-3">
-              Total Amount:{" "}
-              <span className="text-success font-weight-bold">
-                ¥{totalOrderSum.toLocaleString()}
-              </span>
-            </h2>
-            <button
-              className="btn btn-warning btn-lg px-5 font-weight-bold shadow-sm text-white"
-              onClick={handleCheckoutProcess}
-              style={{ backgroundColor: "#ff9100", border: "none" }}
-            >
-              Confirm Checkout
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+                return (
+                  /* Use name or a combined string for the key to ensure React tracks changes safely */
+                  <div
+                    className="cart-item-list"
+                    key={`${item.id}-${item.name}`}
+                  >
+                    <div className="cart-item-detail">
+                      <img src={item.imageUrl} alt={item.name} />
+                      <div className="cart-item-text">
+                        <p className="name">{item.name}</p>
+                        <p className="price">
+                          {item.quantity > 1 && (
+                            <span className="cart-item-quantity-badge text-danger font-weight-bold me-2">
+                              x{item.quantity}
+                            </span>
+                          )}
+                          {/* 2. Display the total line amount rather than just the base price */}
+                          ¥{itemTotalLinePrice.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      className="cart-remove-btn"
+                      onClick={() => handleRemoveItemFromCart(item.id)}
+                    >
+                      <img
+                        src="https://img.icons8.com/ios-filled/100/FFFFFF/waste.png"
+                        alt="Remove Item"
+                      />
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>
+      <div className="cart-checkout-container">
+        <h4>Total Items: {items.length}</h4>
+        <h4>
+          Total Amount: <span>¥{totalOrderSum.toLocaleString()}</span>
+        </h4>
+        <button onClick={handleCheckoutProcess}>Checkout</button>
+      </div>
+    </>
   );
 };
 

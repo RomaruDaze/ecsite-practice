@@ -1,4 +1,4 @@
-import { BASE_URL } from "../components/constants/apiUrl";
+import { BASE_URL } from "../constants/apiUrl";
 import type { Item } from "../types/item";
 
 export async function fetchCartAllItem(id: number): Promise<Item[]> {

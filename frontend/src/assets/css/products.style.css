@@ -65,3 +65,19 @@
   align-items: center;
   margin-top: 50px;
 }
+
+.product-details .add-to-cart-btn {
+  width: 100%;
+  margin-top: auto;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+.recommend-item-price .add-to-cart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

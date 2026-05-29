@@ -32,6 +32,8 @@ const ProductDetails = () => {
       const isSuccess = await addItemToCart(user.id, itemId);
       if (isSuccess) {
         alert("カートに商品を追加しました！");
+
+        window.dispatchEvent(new Event("cartUpdatedDirectly"));
       } else {
         alert("追加に失敗しました。");
       }

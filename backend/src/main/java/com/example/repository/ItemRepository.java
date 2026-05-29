@@ -45,16 +45,14 @@ public class ItemRepository {
     }
 
     public List<Item> fetchCartAllItem(Integer userId) {
+        // Use a straight JOIN with the cart table to preserve multi-quantity rows
         String sql =
-                "SELECT id, name, price,description,image_url \n" +
-                "FROM items AS i\n" +
-                "WHERE i.id IN (\n" +
-                "    SELECT c.item_id \n" +
-                "    FROM cart AS c \n" +
-                "    JOIN users AS u ON u.id = c.user_id\n" +
-                "    where u.id = :id ORDER BY c.id\n" +
-                "    )\n" +
-                ";";
+                "SELECT i.id, i.name, i.price, i.description, i.image_url \n" +
+                        "FROM cart AS c \n" +
+                        "JOIN items AS i ON c.item_id = i.id \n" +
+                        "WHERE c.user_id = :id \n" +
+                        "ORDER BY c.id;";
+
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", userId);
         return template.query(sql, param, ROW_MAPPER);
     }

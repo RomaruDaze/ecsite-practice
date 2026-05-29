@@ -57,6 +57,10 @@ const Cart = () => {
       const isSuccess = await removeItemFromCart(user.id, itemId);
       if (isSuccess) {
         alert("カートから商品を削除しました！");
+
+        // Dispatches the notification instantly through pure event streams
+        window.dispatchEvent(new Event("cartUpdatedDirectly"));
+
         const index = items.findIndex((item) => item.id === itemId);
         if (index !== -1) {
           const updatedItems = [...items];
@@ -84,6 +88,9 @@ const Cart = () => {
       if (result.success) {
         alert(result.message);
         setItems([]);
+
+        // Dispatches the notification instantly through pure event streams
+        window.dispatchEvent(new Event("cartUpdatedDirectly"));
       } else {
         alert(result.message);
       }
@@ -100,7 +107,8 @@ const Cart = () => {
     let found = false;
 
     for (let j = 0; j < groupedItems.length; j++) {
-      if (groupedItems[j].name === currentItem.name) {
+      // Safely compare unique database IDs rather than names
+      if (groupedItems[j].id === currentItem.id) {
         groupedItems[j].quantity += 1;
         found = true;
         break;
@@ -145,13 +153,14 @@ const Cart = () => {
                       <div className="cart-item-text">
                         <p className="name">{item.name}</p>
                         <p className="price">
+                          ¥{itemTotalLinePrice.toLocaleString()}
+                          <br />
                           {item.quantity > 1 && (
                             <span className="cart-item-quantity-badge text-danger font-weight-bold me-2">
                               x{item.quantity}
                             </span>
                           )}
                           {/* 2. Display the total line amount rather than just the base price */}
-                          ¥{itemTotalLinePrice.toLocaleString()}
                         </p>
                       </div>
                     </div>

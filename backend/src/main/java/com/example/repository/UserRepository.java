@@ -3,7 +3,9 @@ package com.example.repository;
 import com.example.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,8 +25,13 @@ public class UserRepository {
     };
 
     public List<User> fetchAllUsers() {
-        System.out.println("RepositoryFindAll");
         String sql = "SELECT * FROM users ORDER BY id DESC";
         return template.query(sql, ROW_MAPPER);
+    }
+
+    public User findByEmailAndPassword(String email, String password) {
+        String sql = "SELECT * FROM users WHERE email = :email AND password = :password";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("email", email).addValue("password",password);
+        return template.queryForObject(sql, param, ROW_MAPPER);
     }
 }

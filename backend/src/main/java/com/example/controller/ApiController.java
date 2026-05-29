@@ -56,10 +56,17 @@ public class ApiController {
     /*
      * User API
      * */
-    @GetMapping("/fetch-users")
+    @GetMapping("/user/fetch-all")
     public Map<String, List<User>> fetchUsers() {
         Map<String, List<User>> response = new HashMap<>();
         response.put("users", userService.fetchAllUsers());
+        return response;
+    }
+
+    @GetMapping("/user/login")
+    public Map<String,User> login(@RequestParam String email, @RequestParam String password) {
+        Map<String,User> response = new HashMap<>();
+        response.put("user", userService.findByEmailAndPassword(email, password));
         return response;
     }
 }

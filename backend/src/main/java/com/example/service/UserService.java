@@ -16,9 +16,9 @@ public class UserService {
         return userRepository.fetchAllUsers();
     }
 
-//    public  findById(Integer id) {
-//        return .findById(id);
-//    }
+    public User findByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
 
 //    public  save( ) {
 //        return .save();

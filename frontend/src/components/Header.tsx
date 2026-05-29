@@ -3,14 +3,17 @@ import { Link, useNavigate } from "react-router";
 import logo from "../assets/images/logo.png";
 
 const Header = () => {
-  // 1. Add state to track the search input text
   const [word, setWord] = useState("");
   const navigate = useNavigate();
 
   const pathToHome = "/home";
   const handleRedirectToHome = () => {
-    // Fixed: Use navigate instead of window.location.href to avoid full reload
     navigate(pathToHome);
+  };
+
+  const pathToLogin = "/login";
+  const handleRedirectToLogin = () => {
+    navigate(pathToLogin);
   };
 
   const handleSearch = () => {
@@ -20,6 +23,7 @@ const Header = () => {
       console.warn("Search word is empty.");
     }
   };
+
 
   return (
     <nav className="nav-container">
@@ -46,7 +50,9 @@ const Header = () => {
             />
           </button>
         </div>
-        <button className="logout-button">ログアウト</button>
+        <button className="login-button" onClick={handleRedirectToLogin}>
+          ログイン
+        </button>
       </div>
       <div className="nav-container-bottom">
         <Link className="nav-link" to="/home">

@@ -2,6 +2,8 @@ package com.example.controller;
 
 import com.example.domain.Item;
 import com.example.domain.User;
+import com.example.repository.CartRepository;
+import com.example.service.CartService;
 import com.example.service.ItemService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ApiController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/hello")
     public Map<String, String> getHelloMessage() {
@@ -99,6 +104,21 @@ public class ApiController {
     public Map<String, List<Item>> fetchUsers(@PathVariable Integer id) {
         Map<String, List<Item>> response = new HashMap<>();
         response.put("users", itemService.fetchAllCartItem(id));
+        return response;
+    }
+
+    @PostMapping("/cart/add-to-cart")
+    public Map<String, Object> addToCart(@RequestParam("userid") Integer userId,
+                                         @RequestParam("itemid") Integer itemId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            cartService.addItemToCart(userId, itemId);
+            response.put("success", true);
+            response.put("message", "Item added to cart successfully");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to add item to cart: " + e.getMessage());
+        }
         return response;
     }
 }

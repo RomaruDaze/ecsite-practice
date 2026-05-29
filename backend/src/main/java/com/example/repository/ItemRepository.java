@@ -44,7 +44,6 @@ public class ItemRepository {
         return template.query(sql, param, ROW_MAPPER);
     }
 
-
     public List<Item> fetchCartAllItem(Integer userId) {
         String sql =
                 "SELECT id, name, price,description,image_url \n" +
@@ -53,7 +52,7 @@ public class ItemRepository {
                 "    SELECT c.item_id \n" +
                 "    FROM cart AS c \n" +
                 "    JOIN users AS u ON u.id = c.user_id\n" +
-                "    where u.id = :id\n" +
+                "    where u.id = :id ORDER BY c.id\n" +
                 "    )\n" +
                 ";";
         SqlParameterSource param = new MapSqlParameterSource().addValue("id", userId);

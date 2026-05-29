@@ -1,9 +1,8 @@
+import { BASE_URL } from "../components/constants/apiUrl";
 import type { Item } from "../types/item";
 
-const BASE_URL = "http://localhost:8080";
-
 export async function fetchAll(): Promise<Item[]> {
-  const response = await fetch(BASE_URL + "/api/fetch-all");
+  const response = await fetch(BASE_URL + "/fetch-all");
   if (!response.ok) {
     throw new Error("商品情報が取得できません");
   }
@@ -13,7 +12,7 @@ export async function fetchAll(): Promise<Item[]> {
 }
 
 export async function fetchItem(id: number): Promise<Item> {
-  const response = await fetch(BASE_URL + "/api/fetch-item/" + id);
+  const response = await fetch(BASE_URL + "/fetch-item/" + id);
 
   if (!response.ok) {
     throw new Error("商品情報が取得できません");
@@ -24,7 +23,7 @@ export async function fetchItem(id: number): Promise<Item> {
 }
 
 export async function searchItem(word: string): Promise<Item> {
-  const response = await fetch(BASE_URL + "/api/search-item/" + word);
+  const response = await fetch(BASE_URL + "/search-item/" + word);
 
   if (!response.ok) {
     throw new Error("商品情報が取得できません");

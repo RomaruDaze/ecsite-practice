@@ -1,12 +1,11 @@
+import { BASE_URL } from "../components/constants/apiUrl";
 import type { User } from "../types/user";
-
-const BASE_URL = "http://localhost:8080";
 
 export async function loginApi(
   email: string,
   password: string,
 ): Promise<User | null> {
-  const response = await fetch(`${BASE_URL}/api/user/login`, {
+  const response = await fetch(`${BASE_URL}/user/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -22,7 +21,7 @@ export async function registerApi(
   email: string,
   password: string,
 ): Promise<boolean> {
-  const response = await fetch(`${BASE_URL}/api/user/register`, {
+  const response = await fetch(`${BASE_URL}/user/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),
